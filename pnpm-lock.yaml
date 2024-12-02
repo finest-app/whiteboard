@@ -17,6 +17,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      throttleit:
+        specifier: ^2.1.0
+        version: 2.1.0
       tldraw:
         specifier: ^3.5.1
         version: 3.5.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2517,6 +2520,10 @@ packages:
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
+
+  throttleit@2.1.0:
+    resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
+    engines: {node: '>=18'}
 
   tldraw@3.5.1:
     resolution: {integrity: sha512-MOAyVbiGvfDQqP4ThnCKsOiRL0ttEnEomQYMZHkPaDiL4gtei+j3xMw/ZbnRrqhw/ORqjspCFamVvkkh4X23Hw==}
@@ -5246,6 +5253,8 @@ snapshots:
   tailwindcss@4.0.0-beta.4: {}
 
   tapable@2.2.1: {}
+
+  throttleit@2.1.0: {}
 
   tldraw@3.5.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
