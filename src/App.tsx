@@ -1,5 +1,8 @@
+import { Tldraw } from 'tldraw'
+import 'tldraw/tldraw.css'
+
 const App = () => {
-	return <h1>Hello World</h1>
+	return <Tldraw />
 }
 
 export default App
