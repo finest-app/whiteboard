@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@tldraw/assets':
+        specifier: ^3.5.1
+        version: 3.5.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -944,6 +947,9 @@ packages:
     resolution: {integrity: sha512-VpexhM1fzmhT3KfviF3BAOeJ5p0Pc0wW6QkTUI+aiRlIHtaPI9QxNrOvLgkLSqGxucb78ERA0eI2hrcAN6gjWA==}
     peerDependencies:
       vite: ^5.2.0
+
+  '@tldraw/assets@3.5.1':
+    resolution: {integrity: sha512-P27o5f2wp9fdo9TX90C3y85rm0EeaH9Rx2wTf0YZ2UMBbbuRqlBzds+H/CrWPTzWjxZ5T4Eert64r2eT4hXtXg==}
 
   '@tldraw/editor@3.5.1':
     resolution: {integrity: sha512-BzqsPR8ufMo9+lEM7wLd/dWa5LAFM7dy72CxnqsIwe4IZHrb26j8G+OEBqz8zEVnqQYSDCmaHjhfHe9CoGZ7ew==}
@@ -3548,6 +3554,10 @@ snapshots:
       - sugarss
       - svelte
       - typescript
+
+  '@tldraw/assets@3.5.1':
+    dependencies:
+      '@tldraw/utils': 3.5.1
 
   '@tldraw/editor@3.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
