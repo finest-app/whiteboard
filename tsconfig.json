@@ -2,7 +2,7 @@
 	"extends": ["@epic-web/config/typescript"],
 	"include": ["@epic-web/config/reset.d.ts", "src"],
 	"compilerOptions": {
-		"types": ["vite/client"],
+		"types": ["vite/client", "utools-api-types"],
 		"paths": {
 			"@/*": ["./src/*"]
 		}

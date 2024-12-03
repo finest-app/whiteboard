@@ -38,7 +38,9 @@ const App = () => {
 		setLoadingState({ status: 'loading' })
 
 		// Get persisted data from local storage
-		const persistedSnapshot = localStorage.getItem(PERSISTENCE_KEY)
+		const persistedSnapshot = window.utools
+			? window.utools.dbStorage.getItem(PERSISTENCE_KEY)
+			: localStorage.getItem(PERSISTENCE_KEY)
 
 		if (persistedSnapshot) {
 			try {
@@ -56,7 +58,13 @@ const App = () => {
 		const cleanupFn = store.listen(
 			throttle(() => {
 				const snapshot = getSnapshot(store)
-				localStorage.setItem(PERSISTENCE_KEY, JSON.stringify(snapshot))
+
+				window.utools
+					? window.utools.dbStorage.setItem(
+							PERSISTENCE_KEY,
+							JSON.stringify(snapshot),
+						)
+					: localStorage.setItem(PERSISTENCE_KEY, JSON.stringify(snapshot))
 			}, 500),
 		)
 
