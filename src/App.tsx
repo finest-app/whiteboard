@@ -12,8 +12,34 @@ import {
 	DEFAULT_SUPPORTED_MEDIA_TYPE_LIST,
 	Tldraw,
 	type TldrawProps,
+	type TLAssetStore,
 } from 'tldraw'
 import 'tldraw/tldraw.css'
+
+const assetStore: TLAssetStore = {
+	async upload(asset, file) {
+		const attachment = new Uint8Array(await file.arrayBuffer())
+
+		const { id } = await window.utools.db.promises.postAttachment(
+			asset.id,
+			attachment,
+			file.type,
+		)
+
+		return id
+	},
+	resolve: async (asset) => {
+		const attachment = await window.utools.db.promises.getAttachment(asset.id)
+
+		if (attachment) {
+			const blob = new Blob([attachment], { type: asset.type })
+
+			return URL.createObjectURL(blob)
+		}
+
+		return null
+	},
+}
 
 const assetUrls = getAssetUrlsByImport((assetUrl) => assetUrl)
 
@@ -44,7 +70,9 @@ if (window.utools) {
 }
 
 const App = () => {
-	const [store] = useState(() => createTLStore())
+	const [store] = useState(() =>
+		createTLStore({ assets: window.utools ? assetStore : undefined }),
+	)
 
 	const [loadingState, setLoadingState] = useState<LoadingState>({
 		status: 'loading',
