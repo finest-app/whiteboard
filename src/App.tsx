@@ -3,6 +3,8 @@ import { useLayoutEffect, useState } from 'react'
 import throttle from 'throttleit'
 import {
 	createTLStore,
+	LoadingScreen,
+	ErrorScreen,
 	DefaultSpinner,
 	getSnapshot,
 	loadSnapshot,
@@ -75,18 +77,14 @@ const App = () => {
 
 	if (loadingState.status === 'loading') {
 		return (
-			<div className="grid size-full place-items-center">
+			<LoadingScreen>
 				<DefaultSpinner />
-			</div>
+			</LoadingScreen>
 		)
 	}
 
 	if (loadingState.status === 'error') {
-		return (
-			<div className="grid size-full place-items-center">
-				{loadingState.error}
-			</div>
-		)
+		return <ErrorScreen>{loadingState.error}</ErrorScreen>
 	}
 
 	return <Tldraw {...tldrawProps} />

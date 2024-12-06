@@ -1,7 +1,7 @@
-@import 'tailwindcss';
+@import 'node_modules/modern-normalize/modern-normalize.css';
 
 html,
 body,
 #root {
-	@apply h-full;
+	height: 100%;
 }
