@@ -1,4 +1,5 @@
 import { getAssetUrlsByImport } from '@tldraw/assets/imports.vite'
+import mime from 'mime/lite'
 import { useLayoutEffect, useState } from 'react'
 import throttle from 'throttleit'
 import {
@@ -8,6 +9,7 @@ import {
 	DefaultSpinner,
 	getSnapshot,
 	loadSnapshot,
+	DEFAULT_SUPPORTED_MEDIA_TYPE_LIST,
 	Tldraw,
 	type TldrawProps,
 } from 'tldraw'
@@ -34,6 +36,49 @@ const App = () => {
 		store,
 		assetUrls,
 		inferDarkMode: true,
+		overrides: {
+			actions: (editor, actions) => {
+				if (window.utools && actions['insert-media']) {
+					actions['insert-media'] = {
+						...actions['insert-media'],
+						onSelect: async () => {
+							const _files = await window.preload.openFiles({
+								filters: [
+									{
+										name: '媒体',
+										extensions: DEFAULT_SUPPORTED_MEDIA_TYPE_LIST.split(
+											',',
+										).flatMap((type) => {
+											const extensions = mime.getAllExtensions(type)
+
+											return extensions ? Array.from(extensions) : []
+										}),
+									},
+								],
+							})
+
+							const files = _files.map(
+								(file) =>
+									new File([file], file.name, {
+										type: mime.getType(file.name) || file.type,
+									}),
+							)
+
+							// trackEvent('insert-media', { source })
+							editor.markHistoryStoppingPoint('insert media')
+							await editor.putExternalContent({
+								type: 'files',
+								files,
+								point: editor.getViewportPageBounds().center,
+								ignoreParent: false,
+							})
+						},
+					}
+				}
+
+				return actions
+			},
+		},
 	}
 
 	useLayoutEffect(() => {

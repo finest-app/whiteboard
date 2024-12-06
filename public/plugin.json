@@ -1,6 +1,7 @@
 {
     "main": "index.html",
     "logo": "icon.png",
+    "preload": "preload.js",
     "features": [
         {
             "code": "main",
