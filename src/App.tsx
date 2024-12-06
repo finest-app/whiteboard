@@ -13,7 +13,6 @@ import {
 	Tldraw,
 	type TldrawProps,
 } from 'tldraw'
-
 import 'tldraw/tldraw.css'
 
 const assetUrls = getAssetUrlsByImport((assetUrl) => assetUrl)
@@ -24,6 +23,25 @@ type LoadingState =
 	| { status: 'loading' }
 	| { status: 'ready' }
 	| { status: 'error'; error: string }
+
+// Migrate data from utools.dbStorage to localConfig
+if (window.utools) {
+	try {
+		const data = window.utools.dbStorage.getItem(PERSISTENCE_KEY)
+
+		// 确保数据有效且目标位置为空
+		if (data && !window.preload.localConfig.getItem(PERSISTENCE_KEY)) {
+			// 先确保新数据能够写入成功
+			window.preload.localConfig.setItem(PERSISTENCE_KEY, data)
+
+			// 写入成功后再删除旧数据
+			window.utools.dbStorage.removeItem(PERSISTENCE_KEY)
+		}
+	} catch (error) {
+		alert(`数据迁移失败：${error}`)
+		window.utools.showMainWindow()
+	}
+}
 
 const App = () => {
 	const [store] = useState(() => createTLStore())
@@ -86,7 +104,7 @@ const App = () => {
 
 		// Get persisted data from local storage
 		const persistedSnapshot = window.utools
-			? window.utools.dbStorage.getItem(PERSISTENCE_KEY)
+			? window.preload.localConfig.getItem(PERSISTENCE_KEY)
 			: localStorage.getItem(PERSISTENCE_KEY)
 
 		if (persistedSnapshot) {
@@ -107,7 +125,7 @@ const App = () => {
 				const snapshot = getSnapshot(store)
 
 				window.utools
-					? window.utools.dbStorage.setItem(
+					? window.preload.localConfig.setItem(
 							PERSISTENCE_KEY,
 							JSON.stringify(snapshot),
 						)

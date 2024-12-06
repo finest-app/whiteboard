@@ -3,6 +3,13 @@ const http = require('node:http')
 const https = require('node:https')
 const path = require('node:path')
 const { URL } = require('node:url')
+const localConfig = require('./localConfig.js')
+
+const CONFIG_FILE_PATH = 'utools-whiteboard-plugin-config.json'
+
+localConfig.setStoragePath(
+	path.join(utools.getPath('userData'), CONFIG_FILE_PATH),
+)
 
 /**
  * 获取一个文件
@@ -172,6 +179,7 @@ async function downloadFile(data, name) {
 }
 
 window.preload = {
+	localConfig,
 	openFile,
 	openFiles,
 	downloadFileFromUrl,

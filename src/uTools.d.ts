@@ -21,6 +21,11 @@ interface OpenFileOption {
 interface Window {
 	preload: {
 		/**
+		 * 本地配置存储接口，用于持久化存储本地配置信息
+		 * 类似于 localStorage，但数据存储在本地文件系统中
+		 */
+		localConfig: Storage
+		/**
 		 * 打开一个文件，并返回File对象
 		 * @param options 参数
 		 * @return 返回File对象
