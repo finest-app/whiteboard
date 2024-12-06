@@ -3,21 +3,21 @@ import mime from 'mime/lite'
 import { useLayoutEffect, useState } from 'react'
 import throttle from 'throttleit'
 import {
+	type TldrawProps,
+	type TLAssetStore,
+	DEFAULT_SUPPORTED_MEDIA_TYPE_LIST,
 	createTLStore,
 	LoadingScreen,
 	ErrorScreen,
 	DefaultSpinner,
 	getSnapshot,
 	loadSnapshot,
-	DEFAULT_SUPPORTED_MEDIA_TYPE_LIST,
 	Tldraw,
-	type TldrawProps,
-	type TLAssetStore,
 } from 'tldraw'
 import 'tldraw/tldraw.css'
 
 const assetStore: TLAssetStore = {
-	async upload(asset, file) {
+	upload: async (asset, file) => {
 		const attachment = new Uint8Array(await file.arrayBuffer())
 
 		const { id } = await window.utools.db.promises.postAttachment(
@@ -83,7 +83,7 @@ const App = () => {
 		assetUrls,
 		inferDarkMode: true,
 		overrides: {
-			actions: (editor, actions) => {
+			actions: (editor, actions, helper) => {
 				if (window.utools && actions['insert-media']) {
 					actions['insert-media'] = {
 						...actions['insert-media'],
@@ -103,12 +103,26 @@ const App = () => {
 								],
 							})
 
-							const files = _files.map(
-								(file) =>
-									new File([file], file.name, {
-										type: mime.getType(file.name) || file.type,
-									}),
-							)
+							if (_files.some((file) => file.size >= 10 * 1024 * 1024)) {
+								helper.addToast({
+									severity: 'warning',
+									title: '文件过大',
+									description: '单个文件大小不能超过 10MB。',
+								})
+							}
+
+							const files = _files
+								.filter((file) => file.size < 10 * 1024 * 1024)
+								.map(
+									(file) =>
+										new File([file], file.name, {
+											type: mime.getType(file.name) || file.type,
+										}),
+								)
+
+							if (files.length === 0) {
+								return
+							}
 
 							// trackEvent('insert-media', { source })
 							editor.markHistoryStoppingPoint('insert media')
