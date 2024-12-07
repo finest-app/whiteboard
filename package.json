@@ -20,7 +20,7 @@
     "tldraw": "3.6.0"
   },
   "devDependencies": {
-    "@epic-web/config": "^1.15.0",
+    "@epic-web/config": "^1.16.4",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
