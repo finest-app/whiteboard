@@ -1,0 +1,18 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 349d159f985816953424241caa62f77339ea8a18..0000000000000000000000000000000000000000
+diff --git a/dist-esm/lib/utils/export/exportAs.mjs b/dist-esm/lib/utils/export/exportAs.mjs
+index a4416931f4fbd18a3e5e17dad027f32f4cf93b4a..f9d87745b82070bbec0e6aa6311c1f1f56d64456 100644
+--- a/dist-esm/lib/utils/export/exportAs.mjs
++++ b/dist-esm/lib/utils/export/exportAs.mjs
+@@ -15,7 +15,9 @@ async function exportAs(editor, ids, format = "png", name, opts = {}) {
+   name += `.${format}`;
+   const blob = await exportToBlob({ editor, ids, format, opts });
+   const file = new File([blob], name, { type: blob.type });
+-  downloadFile(file);
++  window.preload
++	? window.preload.downloadFile(file, file.name)
++	: downloadFile(file)
+ }
+ function getTimestamp() {
+   const now = /* @__PURE__ */ new Date();

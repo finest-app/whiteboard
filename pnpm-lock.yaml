@@ -4,12 +4,17 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  tldraw@3.6.0:
+    hash: ankdrnxxm2y7v5y4sjrm7y473i
+    path: patches/tldraw@3.6.0.patch
+
 importers:
 
   .:
     dependencies:
       '@tldraw/assets':
-        specifier: ^3.6.0
+        specifier: 3.6.0
         version: 3.6.0
       mime:
         specifier: ^4.0.4
@@ -24,8 +29,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       tldraw:
-        specifier: ^3.6.0
-        version: 3.6.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.6.0
+        version: 3.6.0(patch_hash=ankdrnxxm2y7v5y4sjrm7y473i)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@epic-web/config':
         specifier: ^1.15.0
@@ -4965,7 +4970,7 @@ snapshots:
 
   throttleit@2.1.0: {}
 
-  tldraw@3.6.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  tldraw@3.6.0(patch_hash=ankdrnxxm2y7v5y4sjrm7y473i)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-context-menu': 2.2.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
