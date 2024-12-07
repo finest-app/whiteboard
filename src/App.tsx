@@ -18,15 +18,21 @@ import 'tldraw/tldraw.css'
 
 const assetStore: TLAssetStore = {
 	upload: async (asset, file) => {
-		const attachment = new Uint8Array(await file.arrayBuffer())
-
-		const { id } = await window.utools.db.promises.postAttachment(
+		const isAssetUploaded = await window.utools.db.promises.getAttachment(
 			asset.id,
-			attachment,
-			file.type,
 		)
 
-		return id
+		if (!isAssetUploaded) {
+			const attachment = new Uint8Array(await file.arrayBuffer())
+
+			await window.utools.db.promises.postAttachment(
+				asset.id,
+				attachment,
+				file.type,
+			)
+		}
+
+		return asset.id
 	},
 	resolve: async (asset) => {
 		const attachment = await window.utools.db.promises.getAttachment(asset.id)
@@ -84,56 +90,50 @@ const App = () => {
 		inferDarkMode: true,
 		overrides: {
 			actions: (editor, actions, helper) => {
-				if (window.utools && actions['insert-media']) {
-					actions['insert-media'] = {
-						...actions['insert-media'],
-						onSelect: async () => {
-							const _files = await window.preload.openFiles({
-								filters: [
-									{
-										name: '媒体',
-										extensions: DEFAULT_SUPPORTED_MEDIA_TYPE_LIST.split(
-											',',
-										).flatMap((type) => {
-											const extensions = mime.getAllExtensions(type)
+				helper.insertMedia = async () => {
+					const _files = await window.preload.openFiles({
+						filters: [
+							{
+								name: '媒体',
+								extensions: DEFAULT_SUPPORTED_MEDIA_TYPE_LIST.split(
+									',',
+								).flatMap((type) => {
+									const extensions = mime.getAllExtensions(type)
 
-											return extensions ? Array.from(extensions) : []
-										}),
-									},
-								],
-							})
+									return extensions ? Array.from(extensions) : []
+								}),
+							},
+						],
+					})
 
-							if (_files.some((file) => file.size >= 10 * 1024 * 1024)) {
-								helper.addToast({
-									severity: 'warning',
-									title: '文件过大',
-									description: '单个文件大小不能超过 10MB。',
-								})
-							}
-
-							const files = _files
-								.filter((file) => file.size < 10 * 1024 * 1024)
-								.map(
-									(file) =>
-										new File([file], file.name, {
-											type: mime.getType(file.name) || file.type,
-										}),
-								)
-
-							if (files.length === 0) {
-								return
-							}
-
-							// trackEvent('insert-media', { source })
-							editor.markHistoryStoppingPoint('insert media')
-							await editor.putExternalContent({
-								type: 'files',
-								files,
-								point: editor.getViewportPageBounds().center,
-								ignoreParent: false,
-							})
-						},
+					if (_files.some((file) => file.size >= 10 * 1024 * 1024)) {
+						helper.addToast({
+							severity: 'warning',
+							title: '文件过大',
+							description: '单个文件大小不能超过 10MB。',
+						})
 					}
+
+					const files = _files
+						.filter((file) => file.size < 10 * 1024 * 1024)
+						.map(
+							(file) =>
+								new File([file], file.name, {
+									type: mime.getType(file.name) || file.type,
+								}),
+						)
+
+					if (files.length === 0) {
+						return
+					}
+
+					editor.markHistoryStoppingPoint('insert media')
+					await editor.putExternalContent({
+						type: 'files',
+						files,
+						point: editor.getViewportPageBounds().center,
+						ignoreParent: false,
+					})
 				}
 
 				return actions
