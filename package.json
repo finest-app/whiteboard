@@ -27,7 +27,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^9.16.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "husky": "^9.1.6",
+    "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
     "modern-normalize": "^3.0.1",
     "prettier": "^3.4.1",
