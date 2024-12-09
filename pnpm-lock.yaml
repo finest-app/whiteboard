@@ -75,8 +75,8 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(lightningcss@1.28.1)(sugarss@4.0.1)
       vite-tsconfig-paths:
-        specifier: ^5.1.3
-        version: 5.1.3(typescript@5.7.2)(vite@5.4.11(lightningcss@1.28.1)(sugarss@4.0.1))
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.7.2)(vite@5.4.11(lightningcss@1.28.1)(sugarss@4.0.1))
 
 packages:
 
@@ -2411,8 +2411,8 @@ packages:
   utools-api-types@5.2.0:
     resolution: {integrity: sha512-3QfAioW6k1QxBtlpEwvcadpaPz/r6WBF/5s38smy58r372my217K8OmN9mD6aHHfZqeVkBawfr0HIDQ9rz9IEQ==}
 
-  vite-tsconfig-paths@5.1.3:
-    resolution: {integrity: sha512-0bz+PDlLpGfP2CigeSKL9NFTF1KtXkeHGZSSaGQSuPZH77GhoiQaA8IjYgOaynSuwlDTolSUEU0ErVvju3NURg==}
+  vite-tsconfig-paths@5.1.4:
+    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -4942,7 +4942,7 @@ snapshots:
 
   utools-api-types@5.2.0: {}
 
-  vite-tsconfig-paths@5.1.3(typescript@5.7.2)(vite@5.4.11(lightningcss@1.28.1)(sugarss@4.0.1)):
+  vite-tsconfig-paths@5.1.4(typescript@5.7.2)(vite@5.4.11(lightningcss@1.28.1)(sugarss@4.0.1)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
