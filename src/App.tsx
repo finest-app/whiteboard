@@ -7,6 +7,7 @@ import {
 	type TLAssetStore,
 	DEFAULT_SUPPORTED_MEDIA_TYPE_LIST,
 	createTLStore,
+	FileHelpers,
 	LoadingScreen,
 	ErrorScreen,
 	DefaultSpinner,
@@ -32,7 +33,9 @@ const assetStore: TLAssetStore = {
 			)
 		}
 
-		return asset.id
+		return {
+			src: await FileHelpers.blobToDataUrl(file),
+		}
 	},
 	resolve: async (asset) => {
 		const attachment = await window.utools.db.promises.getAttachment(asset.id)
