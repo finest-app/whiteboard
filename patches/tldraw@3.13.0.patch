@@ -1,6 +1,6 @@
 diff --git a/CHANGELOG.md b/CHANGELOG.md
 deleted file mode 100644
-index 5bd08b57ea7012ab8e084738c8b65b4ab7ab6470..0000000000000000000000000000000000000000
+index 61287bb1da9a489035de75bbb1e68a712bea86c4..0000000000000000000000000000000000000000
 diff --git a/dist-esm/lib/utils/export/exportAs.mjs b/dist-esm/lib/utils/export/exportAs.mjs
 index be2f6daded00b8262781f70ab783ad7f6cec6fcf..86f56b30ed67375039587f58622bb61b6ce6c4f7 100644
 --- a/dist-esm/lib/utils/export/exportAs.mjs
