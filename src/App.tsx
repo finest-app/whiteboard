@@ -41,6 +41,9 @@ const assetStore: TLAssetStore = {
 		const attachment = await window.utools.db.promises.getAttachment(asset.id)
 
 		if (attachment) {
+			console.log(attachment)
+
+			// @ts-expect-error
 			const blob = new Blob([attachment], { type: asset.type })
 
 			return URL.createObjectURL(blob)

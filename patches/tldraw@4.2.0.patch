@@ -1,11 +1,8 @@
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-deleted file mode 100644
-index 61287bb1da9a489035de75bbb1e68a712bea86c4..0000000000000000000000000000000000000000
 diff --git a/dist-esm/lib/utils/export/exportAs.mjs b/dist-esm/lib/utils/export/exportAs.mjs
-index be2f6daded00b8262781f70ab783ad7f6cec6fcf..86f56b30ed67375039587f58622bb61b6ce6c4f7 100644
+index 8aee89a7215a0a98691bb02a0b99b83f1ba1e0c4..680358739ccf43e0c6ffee248daaa09e81659d5a 100644
 --- a/dist-esm/lib/utils/export/exportAs.mjs
 +++ b/dist-esm/lib/utils/export/exportAs.mjs
-@@ -18,7 +18,7 @@ async function exportAs(...args) {
+@@ -17,7 +17,7 @@ async function exportAs(editor, ids, opts) {
    name += `.${opts.format}`;
    const { blob } = await editor.toImage(ids, opts);
    const file = new File([blob], name, { type: blob.type });
